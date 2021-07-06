@@ -44,14 +44,18 @@ const AppProvider = ({children})=>{
             })
              setLoading(false)
         }catch(err){
-             
+               console.log(err) 
             setLoading(false)
         }
      }
+     useEffect(()=>{
+        fetchImages()
+      
+    },[page])
 
        useEffect(()=>{
          const a = window.addEventListener('scroll', ()=>{
-             if(window.scrollY+window.innerHeight > document.body.scrollHeight){
+             if(!loading && window.scrollY+window.innerHeight > document.body.scrollHeight-2){
                  setPage((oldpage)=>{
                      return oldpage+1
                  })
@@ -59,15 +63,12 @@ const AppProvider = ({children})=>{
              }
           //console.log(window.scrollY+window.innerHeight, "Scroll Height ", document.body.scrollHeight)
          })
-         console.log(page)
+         
          return () => window.removeEventListener('scroll', a)
      },[])
      
     
-    useEffect(()=>{
-        fetchImages();
-      
-    },[page])
+
 
  
 
